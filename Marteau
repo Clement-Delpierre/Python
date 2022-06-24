@@ -1,0 +1,100 @@
+"""Définit les classes d'outils"""
+
+class BoiteAOutils:
+
+    def __init__(self):
+        self.outils = []
+
+    def AjoutOutil(self, outil):
+        self.outils.append(outil)
+
+    def SupprimeOutil(self, outil):
+        self.outils.remove(outil)
+
+class Tournevis:
+
+    def __init__(self, taille = 3):
+        self.taille = taille
+    
+    def Visser(self, vis, nbTour = 1):
+        vis.Serrer(nbTour)
+
+    def Devisser(self, vis, nbTour = 1):
+        vis.Deserrer(nbTour)
+
+    def __str__(self):
+        return f"Tournevis de taille {self.taille}"
+
+class Marteau:
+    def __init__(self, couleur):
+        self.couleur = couleur
+    
+    def Colorier(self, couleur):
+        self.couleur = couleur
+
+    def EnfoncerClou(self, clou):
+        clou.Enfoncer()
+
+    def RetirerClou(self, clou):
+        clou.Retirer()
+
+    def __str__(self):
+        return f"Marteau de couleur {self.couleur}"
+
+class Vis:
+    SERRAGE_MAX = 5
+
+    def __init__(self):
+        self.serrage = 0
+    
+    def Serrer(self, nbTour = 1):
+        for i in range(nbTour):
+            if self.serrage < self.SERRAGE_MAX:
+                self.serrage += 1
+            
+    def Deserrer(self, nbTour = 1):
+        for i in range(nbTour):
+            if self.serrage > 0:
+                self.serrage -= 1
+
+    def __str__(self):
+        return f"Vis avec un serrage de {self.serrage}"
+
+class Clou:
+    def __init__(self):
+        self.estEnfonce = False
+    
+    def Enfoncer(self):
+        if not self.estEnfonce:
+            self.estEnfonce = True
+
+    def Retirer(self):
+        if self.estEnfonce:
+            self.estEnfonce = False
+
+    def __str__(self):
+        etatDuClou = "dans le mur" if self.estEnfonce else "hors du mur"
+        return f"Clou {etatDuClou}"
+
+caisse = BoiteAOutils()
+tournevis = Tournevis()
+marteau = Marteau("blanc")
+caisse.AjoutOutil(tournevis)
+caisse.AjoutOutil(marteau)
+
+vis = Vis()
+
+print(vis)
+tournevis.Visser(vis, 4)
+print(vis)
+tournevis.Devisser(vis, 2)
+print(vis)
+
+clou = Clou()
+
+print(clou)
+marteau.EnfoncerClou(clou)
+print(clou)
+marteau.RetirerClou(clou)
+print(clou)
+    
